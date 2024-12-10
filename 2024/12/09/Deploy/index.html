@@ -4,14 +4,19 @@
   <meta charset="utf-8">
   
   
-  <title>Archives: 2024 | Xinbo&#39;s Blog</title>
+  <title>Deploy | Xinbo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Xinbo&#39;s Blog">
-<meta property="og:url" content="https://yxbzz666.github.io/archives/2024/index.html">
+  <meta name="description" content="记录一下部署个站的过程 1. 环境新增在云服务器上新建一个部署用户，并赋予sudo权限 创建名为 ‘XXX’ 的新用户（你可以换成其他名字）sudo useradd -m -s &#x2F;bin&#x2F;bash XXX 设置用户密码sudo passwd XXX 将用户添加到 sudo 组（如果需要 sudo 权限的话）sudo usermod -aG sudo XXX 切换到 XXX 用户">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deploy">
+<meta property="og:url" content="https://yxbzz666.github.io/2024/12/09/Deploy/index.html">
 <meta property="og:site_name" content="Xinbo&#39;s Blog">
+<meta property="og:description" content="记录一下部署个站的过程 1. 环境新增在云服务器上新建一个部署用户，并赋予sudo权限 创建名为 ‘XXX’ 的新用户（你可以换成其他名字）sudo useradd -m -s &#x2F;bin&#x2F;bash XXX 设置用户密码sudo passwd XXX 将用户添加到 sudo 组（如果需要 sudo 权限的话）sudo usermod -aG sudo XXX 切换到 XXX 用户">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-09T14:01:32.000Z">
+<meta property="article:modified_time" content="2024-12-09T14:10:13.989Z">
 <meta property="article:author" content="Xinbo">
+<meta property="article:tag" content="Personal Website">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Xinbo's Blog" type="application/atom+xml">
@@ -67,134 +72,70 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2024" class="archive-year">2024</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/12/10/Git-%E8%AE%B0%E5%BD%95/" class="archive-article-date">
-  <time class="dt-published" datetime="2024-12-10T02:17:16.000Z" itemprop="datePublished">Dec 10</time>
+        <section id="main"><article id="post-Deploy" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/09/Deploy/" class="article-date">
+  <time class="dt-published" datetime="2024-12-09T14:01:32.000Z" itemprop="datePublished">2024-12-09</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/12/10/Git-%E8%AE%B0%E5%BD%95/">Git 记录</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      Deploy
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/12/09/Deploy/" class="archive-article-date">
-  <time class="dt-published" datetime="2024-12-09T14:01:32.000Z" itemprop="datePublished">Dec 9</time>
-</a>
+    <div class="e-content article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/12/09/Deploy/">Deploy</a>
-    </h1>
-  
+        <p>记录一下部署个站的过程</p>
+<h2 id="1-环境新增"><a href="#1-环境新增" class="headerlink" title="1. 环境新增"></a>1. 环境新增</h2><p>在云服务器上新建一个部署用户，并赋予sudo权限</p>
+<h1 id="创建名为-‘XXX’-的新用户（你可以换成其他名字）"><a href="#创建名为-‘XXX’-的新用户（你可以换成其他名字）" class="headerlink" title="创建名为 ‘XXX’ 的新用户（你可以换成其他名字）"></a>创建名为 ‘XXX’ 的新用户（你可以换成其他名字）</h1><p>sudo useradd -m -s &#x2F;bin&#x2F;bash XXX</p>
+<h1 id="设置用户密码"><a href="#设置用户密码" class="headerlink" title="设置用户密码"></a>设置用户密码</h1><p>sudo passwd XXX</p>
+<h1 id="将用户添加到-sudo-组（如果需要-sudo-权限的话）"><a href="#将用户添加到-sudo-组（如果需要-sudo-权限的话）" class="headerlink" title="将用户添加到 sudo 组（如果需要 sudo 权限的话）"></a>将用户添加到 sudo 组（如果需要 sudo 权限的话）</h1><p>sudo usermod -aG sudo XXX</p>
+<h1 id="切换到-XXX-用户"><a href="#切换到-XXX-用户" class="headerlink" title="切换到 XXX 用户"></a>切换到 XXX 用户</h1><p>su - XXX</p>
+<h1 id="验证当前用户"><a href="#验证当前用户" class="headerlink" title="验证当前用户"></a>验证当前用户</h1><p>whoami</p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/11/26/Thoughts-about-pooling-system-on-Retail-exposures/" class="archive-article-date">
-  <time class="dt-published" datetime="2024-11-26T08:11:19.000Z" itemprop="datePublished">Nov 26</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/11/26/Thoughts-about-pooling-system-on-Retail-exposures/">Thoughts about pooling system on Retail exposures</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/11/24/GitHub-Pages%E6%90%AD%E5%BB%BA/" class="archive-article-date">
-  <time class="dt-published" datetime="2024-11-24T03:53:56.000Z" itemprop="datePublished">Nov 24</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2024/12/09/Deploy/" data-id="cm4hu89oh0000xgpt7v01dhrs" data-title="Deploy" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/11/24/GitHub-Pages%E6%90%AD%E5%BB%BA/">GitHub Pages搭建</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/11/24/Hello-World-0/" class="archive-article-date">
-  <time class="dt-published" datetime="2024-11-24T01:54:40.923Z" itemprop="datePublished">Nov 24</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/11/24/Hello-World-0/">Hello World Hexo</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/11/24/hello-world/" class="archive-article-date">
-  <time class="dt-published" datetime="2024-11-24T00:57:00.647Z" itemprop="datePublished">Nov 24</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/11/24/hello-world/">Hello World</a>
-    </h1>
-  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Personal-Website/" rel="tag">Personal Website</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/12/10/Git-%E8%AE%B0%E5%BD%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Git 记录
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/11/26/Thoughts-about-pooling-system-on-Retail-exposures/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Thoughts about pooling system on Retail exposures</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
 </section>

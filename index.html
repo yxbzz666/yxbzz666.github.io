@@ -69,6 +69,96 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Git-记录" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/10/Git-%E8%AE%B0%E5%BD%95/" class="article-date">
+  <time class="dt-published" datetime="2024-12-10T02:17:16.000Z" itemprop="datePublished">2024-12-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/10/Git-%E8%AE%B0%E5%BD%95/">Git 记录</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="记录"><a href="#记录" class="headerlink" title="记录"></a>记录</h2><h3 id="1-创建仓库"><a href="#1-创建仓库" class="headerlink" title="1. 创建仓库"></a>1. 创建仓库</h3><p>最近需求要从一个仓库中拉取代码，然后推送到另一个远程仓库中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> &lt;仓库地址1&gt; --branch &lt;分支名称&gt;</span><br><span class="line">git remote add &lt;远程仓库名称&gt; &lt;远程仓库地址2&gt;</span><br><span class="line">git push &lt;远程仓库名称2&gt; &lt;分支名称&gt;</span><br></pre></td></tr></table></figure>
+<p>两个仓库的分支名称要一致，否则会报错。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2024/12/10/Git-%E8%AE%B0%E5%BD%95/" data-id="cm4hu89on0001xgptfxk96299" data-title="Git 记录" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Deploy" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/09/Deploy/" class="article-date">
+  <time class="dt-published" datetime="2024-12-09T14:01:32.000Z" itemprop="datePublished">2024-12-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/09/Deploy/">Deploy</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>记录一下部署个站的过程</p>
+<h2 id="1-环境新增"><a href="#1-环境新增" class="headerlink" title="1. 环境新增"></a>1. 环境新增</h2><p>在云服务器上新建一个部署用户，并赋予sudo权限</p>
+<h1 id="创建名为-‘XXX’-的新用户（你可以换成其他名字）"><a href="#创建名为-‘XXX’-的新用户（你可以换成其他名字）" class="headerlink" title="创建名为 ‘XXX’ 的新用户（你可以换成其他名字）"></a>创建名为 ‘XXX’ 的新用户（你可以换成其他名字）</h1><p>sudo useradd -m -s &#x2F;bin&#x2F;bash XXX</p>
+<h1 id="设置用户密码"><a href="#设置用户密码" class="headerlink" title="设置用户密码"></a>设置用户密码</h1><p>sudo passwd XXX</p>
+<h1 id="将用户添加到-sudo-组（如果需要-sudo-权限的话）"><a href="#将用户添加到-sudo-组（如果需要-sudo-权限的话）" class="headerlink" title="将用户添加到 sudo 组（如果需要 sudo 权限的话）"></a>将用户添加到 sudo 组（如果需要 sudo 权限的话）</h1><p>sudo usermod -aG sudo XXX</p>
+<h1 id="切换到-XXX-用户"><a href="#切换到-XXX-用户" class="headerlink" title="切换到 XXX 用户"></a>切换到 XXX 用户</h1><p>su - XXX</p>
+<h1 id="验证当前用户"><a href="#验证当前用户" class="headerlink" title="验证当前用户"></a>验证当前用户</h1><p>whoami</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2024/12/09/Deploy/" data-id="cm4hu89oh0000xgpt7v01dhrs" data-title="Deploy" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Personal-Website/" rel="tag">Personal Website</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Thoughts-about-pooling-system-on-Retail-exposures" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/11/26/Thoughts-about-pooling-system-on-Retail-exposures/" class="article-date">
@@ -260,15 +350,29 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Personal-Website/" rel="tag">Personal Website</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Personal-Website/" style="font-size: 10px;">Personal Website</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li></ul>
     </div>
   </div>
 
@@ -281,6 +385,14 @@
       <ul>
         
           <li>
+            <a href="/2024/12/10/Git-%E8%AE%B0%E5%BD%95/">Git 记录</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/09/Deploy/">Deploy</a>
+          </li>
+        
+          <li>
             <a href="/2024/11/26/Thoughts-about-pooling-system-on-Retail-exposures/">Thoughts about pooling system on Retail exposures</a>
           </li>
         
@@ -290,10 +402,6 @@
         
           <li>
             <a href="/2024/11/24/Hello-World-0/">Hello World Hexo</a>
-          </li>
-        
-          <li>
-            <a href="/2024/11/24/hello-world/">Hello World</a>
           </li>
         
       </ul>
