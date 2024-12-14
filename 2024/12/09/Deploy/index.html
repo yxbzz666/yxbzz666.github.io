@@ -6,15 +6,15 @@
   
   <title>Deploy | Xinbo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="记录一下部署个站的过程 1. 环境新增在云服务器上新建一个部署用户，并赋予sudo权限 创建名为 ‘XXX’ 的新用户（你可以换成其他名字）sudo useradd -m -s &#x2F;bin&#x2F;bash XXX 设置用户密码sudo passwd XXX 将用户添加到 sudo 组（如果需要 sudo 权限的话）sudo usermod -aG sudo XXX 切换到 XXX 用户">
+  <meta name="description" content="记录一下部署个站的过程 1. 环境新增在云服务器上新建一个部署用户，并赋予sudo权限 创建名为 ‘XXX’ 的新用户（你可以换成其他名字）1sudo useradd -m -s &#x2F;bin&#x2F;bash XXX  设置用户密码1sudo passwd XXX  将用户添加到 sudo 组（如果需要 sudo 权限的话）1sudo usermod -aG sudo XXX  切换到 XXX 用户1su">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Deploy">
 <meta property="og:url" content="https://yxbzz666.github.io/2024/12/09/Deploy/index.html">
 <meta property="og:site_name" content="Xinbo&#39;s Blog">
-<meta property="og:description" content="记录一下部署个站的过程 1. 环境新增在云服务器上新建一个部署用户，并赋予sudo权限 创建名为 ‘XXX’ 的新用户（你可以换成其他名字）sudo useradd -m -s &#x2F;bin&#x2F;bash XXX 设置用户密码sudo passwd XXX 将用户添加到 sudo 组（如果需要 sudo 权限的话）sudo usermod -aG sudo XXX 切换到 XXX 用户">
+<meta property="og:description" content="记录一下部署个站的过程 1. 环境新增在云服务器上新建一个部署用户，并赋予sudo权限 创建名为 ‘XXX’ 的新用户（你可以换成其他名字）1sudo useradd -m -s &#x2F;bin&#x2F;bash XXX  设置用户密码1sudo passwd XXX  将用户添加到 sudo 组（如果需要 sudo 权限的话）1sudo usermod -aG sudo XXX  切换到 XXX 用户1su">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-12-09T14:01:32.000Z">
-<meta property="article:modified_time" content="2024-12-09T14:10:13.989Z">
+<meta property="article:modified_time" content="2024-12-14T11:56:16.534Z">
 <meta property="article:author" content="Xinbo">
 <meta property="article:tag" content="Personal Website">
 <meta name="twitter:card" content="summary">
@@ -96,11 +96,36 @@
       
         <p>记录一下部署个站的过程</p>
 <h2 id="1-环境新增"><a href="#1-环境新增" class="headerlink" title="1. 环境新增"></a>1. 环境新增</h2><p>在云服务器上新建一个部署用户，并赋予sudo权限</p>
-<h1 id="创建名为-‘XXX’-的新用户（你可以换成其他名字）"><a href="#创建名为-‘XXX’-的新用户（你可以换成其他名字）" class="headerlink" title="创建名为 ‘XXX’ 的新用户（你可以换成其他名字）"></a>创建名为 ‘XXX’ 的新用户（你可以换成其他名字）</h1><p>sudo useradd -m -s &#x2F;bin&#x2F;bash XXX</p>
-<h1 id="设置用户密码"><a href="#设置用户密码" class="headerlink" title="设置用户密码"></a>设置用户密码</h1><p>sudo passwd XXX</p>
-<h1 id="将用户添加到-sudo-组（如果需要-sudo-权限的话）"><a href="#将用户添加到-sudo-组（如果需要-sudo-权限的话）" class="headerlink" title="将用户添加到 sudo 组（如果需要 sudo 权限的话）"></a>将用户添加到 sudo 组（如果需要 sudo 权限的话）</h1><p>sudo usermod -aG sudo XXX</p>
-<h1 id="切换到-XXX-用户"><a href="#切换到-XXX-用户" class="headerlink" title="切换到 XXX 用户"></a>切换到 XXX 用户</h1><p>su - XXX</p>
-<h1 id="验证当前用户"><a href="#验证当前用户" class="headerlink" title="验证当前用户"></a>验证当前用户</h1><p>whoami</p>
+<h3 id="创建名为-‘XXX’-的新用户（你可以换成其他名字）"><a href="#创建名为-‘XXX’-的新用户（你可以换成其他名字）" class="headerlink" title="创建名为 ‘XXX’ 的新用户（你可以换成其他名字）"></a>创建名为 ‘XXX’ 的新用户（你可以换成其他名字）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> useradd -m -s /bin/bash XXX</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置用户密码"><a href="#设置用户密码" class="headerlink" title="设置用户密码"></a>设置用户密码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> passwd XXX</span><br></pre></td></tr></table></figure>
+
+<h3 id="将用户添加到-sudo-组（如果需要-sudo-权限的话）"><a href="#将用户添加到-sudo-组（如果需要-sudo-权限的话）" class="headerlink" title="将用户添加到 sudo 组（如果需要 sudo 权限的话）"></a>将用户添加到 sudo 组（如果需要 sudo 权限的话）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> usermod -aG <span class="built_in">sudo</span> XXX</span><br></pre></td></tr></table></figure>
+
+<h3 id="切换到-XXX-用户"><a href="#切换到-XXX-用户" class="headerlink" title="切换到 XXX 用户"></a>切换到 XXX 用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su - XXX</span><br></pre></td></tr></table></figure>
+
+<h3 id="验证当前用户"><a href="#验证当前用户" class="headerlink" title="验证当前用户"></a>验证当前用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">whoami</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-安装nginx"><a href="#2-安装nginx" class="headerlink" title="2. 安装nginx"></a>2. 安装nginx</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install nginx</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-上传工程文件"><a href="#3-上传工程文件" class="headerlink" title="3. 上传工程文件"></a>3. 上传工程文件</h2><p>需要给用户XXX赋予权限操作文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">chown</span> -R XXX:XXX /var/www/html</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> -R 755 /var/www/html</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-配置nginx"><a href="#4-配置nginx" class="headerlink" title="4. 配置nginx"></a>4. 配置nginx</h2><p>开放80和443端口，并允许nginx通过防火墙</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow 80/tcp</span><br><span class="line"><span class="built_in">sudo</span> ufw allow 443/tcp</span><br><span class="line"><span class="built_in">sudo</span> ufw allow <span class="string">&#x27;Nginx Full&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>重启nginx</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nginx -t</span><br><span class="line"><span class="built_in">sudo</span> systemctl restart nginx</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-测试访问"><a href="#5-测试访问" class="headerlink" title="5. 测试访问"></a>5. 测试访问</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-其他配置"><a href="#6-其他配置" class="headerlink" title="6. 其他配置"></a>6. 其他配置</h2><p>主要在域名服务商或DNS提供商处配置域名解析，将域名指向云服务器的公网IP地址。<br>注意云服务器需要开放80和443端口，允许通过80和443端口访问。</p>
+<h2 id="7-配置SSL证书"><a href="#7-配置SSL证书" class="headerlink" title="7. 配置SSL证书"></a>7. 配置SSL证书</h2><p>免费的ssl证书可以通过acme.sh获取，并自动更新</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 acme.sh</span></span><br><span class="line">curl https://get.acme.sh | sh -s email=你的邮箱@example.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载环境变量</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 申请证书</span></span><br><span class="line">acme.sh --issue -d mydomain.com -d www.mydomain.com --webroot /home/wwwroot/mydomain.com/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装证书</span></span><br><span class="line">acme.sh --installcert -d mydomain.com -d www.mydomain.com --key-file /etc/nginx/ssl/mydomain.key --fullchain-file /etc/nginx/ssl/mydomain.cer --reloadcmd <span class="string">&quot;systemctl restart nginx&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#nginx配置</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name mydomain.com www.mydomain.com;</span><br><span class="line">    <span class="built_in">return</span> 301 https://$host<span class="variable">$request_uri</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#测试并重启nginx</span></span><br><span class="line"><span class="built_in">sudo</span> nginx -t</span><br><span class="line"><span class="built_in">sudo</span> systemctl restart nginx</span><br><span class="line"></span><br><span class="line"><span class="comment">#安全组开放443端口</span></span><br><span class="line"><span class="comment">#done</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="To-Do"><a href="#To-Do" class="headerlink" title="To Do"></a>To Do</h1><ul>
+<li>配置反向代理</li>
+<li>配置缓存</li>
+</ul>
 
       
     </div>
@@ -129,7 +154,7 @@
   
     <a href="/2024/11/26/Thoughts-about-pooling-system-on-Retail-exposures/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Thoughts about pooling system on Retail exposures</div>
+      <div class="article-nav-title">Risk Management</div>
     </a>
   
 </nav>
@@ -156,7 +181,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Personal-Website/" rel="tag">Personal Website</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Personal-Website/" rel="tag">Personal Website</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Risk-Management/" rel="tag">Risk Management</a></li></ul>
     </div>
   </div>
 
@@ -166,7 +191,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Personal-Website/" style="font-size: 10px;">Personal Website</a>
+      <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Personal-Website/" style="font-size: 10px;">Personal Website</a> <a href="/tags/Risk-Management/" style="font-size: 10px;">Risk Management</a>
     </div>
   </div>
 
@@ -196,7 +221,7 @@
           </li>
         
           <li>
-            <a href="/2024/11/26/Thoughts-about-pooling-system-on-Retail-exposures/">Thoughts about pooling system on Retail exposures</a>
+            <a href="/2024/11/26/Thoughts-about-pooling-system-on-Retail-exposures/">Risk Management</a>
           </li>
         
           <li>
