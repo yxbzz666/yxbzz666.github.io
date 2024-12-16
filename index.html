@@ -135,6 +135,8 @@
         <h3 id="1-创建本地仓库关联多个远程仓库"><a href="#1-创建本地仓库关联多个远程仓库" class="headerlink" title="1. 创建本地仓库关联多个远程仓库"></a>1. 创建本地仓库关联多个远程仓库</h3><p>最近需求要从一个仓库中拉取代码，然后推送到另一个远程仓库中。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> &lt;仓库地址1&gt; --branch &lt;分支名称&gt;</span><br><span class="line">git remote add &lt;远程仓库名称&gt; &lt;远程仓库地址2&gt;</span><br><span class="line">git push &lt;远程仓库名称2&gt; &lt;分支名称&gt;</span><br></pre></td></tr></table></figure>
 <p>两个仓库的分支名称要一致，否则会报错。</p>
+<p>更新代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;更新代码&quot;</span></span><br><span class="line">git push &lt;远程仓库名称2&gt; &lt;分支名称&gt;</span><br></pre></td></tr></table></figure>
 
       
     </div>
