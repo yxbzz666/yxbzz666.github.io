@@ -69,6 +69,500 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-pandas-misc" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/01/pandas-misc/" class="article-date">
+  <time class="dt-published" datetime="2025-01-01T11:09:49.000Z" itemprop="datePublished">2025-01-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>►<a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/01/01/pandas-misc/">pandas_misc</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="1-Python时间操作"><a href="#1-Python时间操作" class="headerlink" title="1. Python时间操作"></a>1. Python时间操作</h2><p>计算时间差  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedelta(days=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>计算时间差</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.Timestamp.now() + timedelta(days=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2025/01/01/pandas-misc/" data-id="cm5e1msmt00007cpt8tvq28dk" data-title="pandas_misc" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pandas/" rel="tag">pandas</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Python/memory-manage-gabbage-collect" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/25/Python/memory-manage-gabbage-collect/" class="article-date">
+  <time class="dt-published" datetime="2024-12-25T08:27:38.000Z" itemprop="datePublished">2024-12-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>►<a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/25/Python/memory-manage-gabbage-collect/">Python内存管理与垃圾回收</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h2><h3 id="Python对象"><a href="#Python对象" class="headerlink" title="Python对象"></a>Python对象</h3><p>Python中一切皆对象，对象的类型和值都是储存在内存中的。</p>
+<p>核心</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">object</span> &#123;</span></span><br><span class="line">　　<span class="type">int</span> ob_refcnt; <span class="comment">// 引用计数</span></span><br><span class="line">　　struct_typeobject *ob_type; <span class="comment">// 指向类型对象的指针</span></span><br><span class="line">&#125;PyObject;</span><br></pre></td></tr></table></figure>
+
+<h3 id="池化技术"><a href="#池化技术" class="headerlink" title="池化技术"></a>池化技术</h3><h2 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h2><p>Python的垃圾回收机制主要基于引用计数和分代回收。</p>
+<h3 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h3><p>每个对象都有一个引用计数，表示该对象被引用的次数。当对象的引用计数为0时，表示该对象不再被使用，可以被回收。<br>Python中可通过<code>sys.getrefcount()</code>查看对象的引用计数。<br>但是引用计数不能解决循环引用的问题，因此需要分代回收。</p>
+<h3 id="分代回收"><a href="#分代回收" class="headerlink" title="分代回收"></a>分代回收</h3><p>Python将对象分为三代，分别是0代、1代和2代。<br>所有新建的对象都是0代对象。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2024/12/25/Python/memory-manage-gabbage-collect/" data-id="cm5e1msmz00017cptc644a6el" data-title="Python内存管理与垃圾回收" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%9B%E9%98%B6%E6%95%99%E7%A8%8B/" rel="tag">进阶教程</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Python/python-pandas" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/23/Python/python-pandas/" class="article-date">
+  <time class="dt-published" datetime="2024-12-23T11:26:29.000Z" itemprop="datePublished">2024-12-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/23/Python/python-pandas/">python-pandas</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><ul>
+<li>一维数据：Series</li>
+<li>二维数据：DataFrame</li>
+</ul>
+<p>数据的查看方法包括：</p>
+<ul>
+<li>head()：查看前n行</li>
+<li>tail()：查看后n行</li>
+<li>info()：查看数据的基本信息，列索引、数据类型、非空计数和内存信息</li>
+<li>describe()：查看数据的基本统计信息，包括计数、均值、标准差、最小值、四分位数、最大值</li>
+<li>shape：查看数据的大小，行数和列数</li>
+<li>dtypes：查看数据类型</li>
+<li>columns：查看列名</li>
+<li>index：查看行索引</li>
+</ul>
+<p>Pandas数据IO需要额外的库支持：如openpyxl</p>
+<ul>
+<li>read_csv()：读取CSV文件</li>
+<li>read_excel()：读取Excel文件</li>
+</ul>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><p>python中可以使用sqlalchemy或者pymysql连接数据库。</p>
+<ul>
+<li>使用sqlalchemy连接数据库</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> create_engine</span><br><span class="line"></span><br><span class="line">engine = create_engine(<span class="string">&#x27;sqlite:///:memory:&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用pymysql连接数据库</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line">conn = pymysql.connect(host=<span class="string">&#x27;localhost&#x27;</span>, user=<span class="string">&#x27;root&#x27;</span>, password=<span class="string">&#x27;123456&#x27;</span>, db=<span class="string">&#x27;test&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>pandas中的read_sql()函数可以读取数据库中的数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">df = pd.read_sql(<span class="string">&#x27;SELECT * FROM test&#x27;</span>, conn)</span><br></pre></td></tr></table></figure>
+
+<p>to_sql()函数可以将数据写入数据库。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.to_sql(<span class="string">&#x27;test&#x27;</span>, conn, if_exists=<span class="string">&#x27;replace&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据选取"><a href="#数据选取" class="headerlink" title="数据选取"></a>数据选取</h2><p>loc和iloc是pandas中用于数据选取的两种方法。</p>
+<ul>
+<li><p>loc：基于标签的选取，可以选取单行、单列、多行、多列，以及切片。</p>
+</li>
+<li><p>iloc：基于位置的选取，可以选取单行、单列、多行、多列，以及切片。</p>
+</li>
+<li><p>布尔索引</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df[df[<span class="string">&#x27;column_name&#x27;</span>] &gt; <span class="number">10</span>]</span><br><span class="line">df[(df[<span class="string">&#x27;column_name&#x27;</span>] &gt; <span class="number">10</span>) &amp; (df[<span class="string">&#x27;column_name&#x27;</span>] &lt; <span class="number">20</span>)]</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据集成"><a href="#数据集成" class="headerlink" title="数据集成"></a>数据集成</h2><p>concat()函数可以用于数据集成，将多个数据集拼接在一起。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.concat([df1, df2])</span><br></pre></td></tr></table></figure>
+
+<p>insert()函数可以用于数据集成，将一个数据集插入到另一个数据集的指定位置。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.insert(loc, column, value)</span><br></pre></td></tr></table></figure>
+
+<p>merge()函数可以用于数据集成，将两个数据集按照某个键进行合并。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.merge(df1, df2, on=<span class="string">&#x27;key&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a>数据清洗</h2><p>重复数据过滤方法有：</p>
+<ul>
+<li>drop_duplicates()：删除重复数据</li>
+<li>duplicated()：返回一个布尔值，表示每个数据是否重复</li>
+</ul>
+<p>空数据过滤方法有：</p>
+<ul>
+<li>dropna()：删除空数据</li>
+<li>fillna()：填充空数据</li>
+<li>isnull()：返回一个布尔值，表示每个数据是否为空</li>
+<li>notnull()：返回一个布尔值，表示每个数据是否不为空</li>
+</ul>
+<p>删除行和列的方法有：</p>
+<ul>
+<li>drop()：删除行或列，axis&#x3D;0表示删除行，axis&#x3D;1表示删除列。</li>
+</ul>
+<p>filter()函数可以用于数据过滤，返回符合条件的行。<br>可以指定标签或使用正则表达式。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df.<span class="built_in">filter</span>(items=[<span class="string">&#x27;column_name1&#x27;</span>, <span class="string">&#x27;column_name2&#x27;</span>])</span><br><span class="line">df.<span class="built_in">filter</span>(regex=<span class="string">&#x27;column_name&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>常见的数据清洗还有过滤异常值、数据转换、数据标准化等。</p>
+<h2 id="数据转换"><a href="#数据转换" class="headerlink" title="数据转换"></a>数据转换</h2><p>轴索引修改方法有：</p>
+<ul>
+<li>set_axis()：设置轴索引</li>
+<li>rename()：重命名轴索引</li>
+<li>rename_axis()：重命名轴索引</li>
+</ul>
+<p>值替换方法有：</p>
+<ul>
+<li>replace()：替换值</li>
+<li>replace_na()：替换空值</li>
+<li>replace_inf()：替换无穷大</li>
+<li>replace_nan()：替换NaN</li>
+</ul>
+<p>map()函数可以用于series,不能用于dataframe.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">&#x27;column_name&#x27;</span>].<span class="built_in">map</span>(<span class="keyword">lambda</span> x: x * <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>apply()函数可以用于dataframe,但是只能对行列进行操作,支持series，可操作多个series。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.apply(<span class="keyword">lambda</span> x: x * <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>applymap()函数可以用于dataframe,对整个dataframe进行操作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.applymap(<span class="keyword">lambda</span> x: x * <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>transform()函数可以用于dataframe,对整个dataframe进行操作,可以对多列进行不同操作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.transform(<span class="keyword">lambda</span> x: x * <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2024/12/23/Python/python-pandas/" data-id="cm5e1msn8000c7cpt4s6q1s1s" data-title="python-pandas" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%AA%E5%88%86%E7%B1%BB/" rel="tag">未分类</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Python/python-closure" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/23/Python/python-closure/" class="article-date">
+  <time class="dt-published" datetime="2024-12-23T10:27:08.000Z" itemprop="datePublished">2024-12-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>►<a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/23/Python/python-closure/">Python闭包</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h2><p>命名空间是变量名和对象的映射关系。Python的命名空间包括：</p>
+<ul>
+<li>内置命名空间：Python自带，任何模块都可以访问，包含内置函数和异常的名称。</li>
+<li>全局命名空间：模块中定义的函数、类、模块级的变量和常量等。</li>
+<li>局部命名空间：函数中定义的变量和参数。</li>
+</ul>
+<p>命名空间中的变量名没有任何关系。</p>
+<p>命名空间的生命周期如下：</p>
+<ul>
+<li>内置命名空间：Python解释器启动时创建，直到Python解释器退出。</li>
+<li>全局命名空间：Python文件执行时创建，直到Python文件执行结束。</li>
+<li>局部命名空间：函数执行时创建，直到函数执行结束。</li>
+</ul>
+<p>模块的属性和方法，都是定义在全局命名空间中。属性和global name之间是映射关系，共享同一个命名空间。</p>
+<h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><p>作用域是变量名可以被访问的区域。<br>作用域的搜索顺序：</p>
+<ul>
+<li>局部命名空间</li>
+<li>全局命名空间</li>
+<li>内置命名空间</li>
+</ul>
+<p>对于变量名被声明为global的变量，那么所有的引用和赋值都会直接作用于全局命名空间。<br>并且只有在函数和类里面，才要定义或者修改全局变量时使用global。<br>函数外部，local作用域和global作用域拥有一样的命名空间，此时不需要声明global。</p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>闭包就是能够读取外部函数变量的内部函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">outer_function</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner_function</span>(<span class="params">y</span>):</span><br><span class="line">        <span class="keyword">return</span> x + y</span><br><span class="line">    <span class="keyword">return</span> inner_function</span><br><span class="line"></span><br><span class="line">closure = outer_function(<span class="number">10</span>)</span><br><span class="line"><span class="built_in">print</span>(closure(<span class="number">20</span>))</span><br></pre></td></tr></table></figure>
+<p>闭包的作用有两个：</p>
+<ul>
+<li>可以访问外部函数的变量</li>
+<li>可以延长外部函数的变量生命周期（持久化）</li>
+</ul>
+<p>闭包的优点总结：</p>
+<ul>
+<li>局部变量无法共享和长久保存，全局变量可能造成变量污染，闭包可以解决这个问题。</li>
+<li>闭包可以使得函数内部变量不被释放，可以延长变量的生命周期，不会在外层函数执行完就被释放。</li>
+<li>闭包可以减少全局变量的使用，可以隐藏内部实现细节，可以实现函数式编程。</li>
+<li>闭包可以实现装饰器，装饰器是用于扩展函数功能的一种方式。</li>
+</ul>
+<p>使用闭包的注意点：</p>
+<ul>
+<li>闭包可以保存外部函数的变量这个特性主要基于函数在编译时固定了变量的地址，闭包无法改变这个地址，如果在闭包中更改了这个变量，闭包会新增一个局部变量。nonlocal声明可以改变这个地址。</li>
+<li>闭包的使用一定程度上加重了内存的占用</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2024/12/23/Python/python-closure/" data-id="cm5e1msn500047cpt9n5wbjz8" data-title="Python闭包" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%9B%E9%98%B6%E6%95%99%E7%A8%8B/" rel="tag">进阶教程</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-GBDT" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/20/GBDT/" class="article-date">
+  <time class="dt-published" datetime="2024-12-20T12:19:11.000Z" itemprop="datePublished">2024-12-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/20/GBDT/">GBDT</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="1-GBDT的通俗理解"><a href="#1-GBDT的通俗理解" class="headerlink" title="1. GBDT的通俗理解"></a>1. GBDT的通俗理解</h1><p>GBDT继承了Boosting的思路，通过多棵决策树的加权组合，累加得到最终结果。在运算过程中，每棵树利用上一棵树的残差作为新的训练数据，通过不断迭代获得最终结果。</p>
+<h2 id="1-1-决策树"><a href="#1-1-决策树" class="headerlink" title="1.1 决策树"></a>1.1 决策树</h2><p>GBDT中，每棵决策树都是一棵回归树，回归树的输出值是连续值，而分类树的输出值是离散值。<br>对于每棵回归树，首先初始化一个弱学习器，然后迭代T次，在每次迭代中，对于样本$i$计算其残差$r_{i,t}$，然后利用残差$r_{i,t},x_i$拟合一个CART回归树，并计算最佳拟合值用来更新弱学习器，最终得到一个强学习器。</p>
+<h2 id="1-2-梯度提升"><a href="#1-2-梯度提升" class="headerlink" title="1.2 梯度提升"></a>1.2 梯度提升</h2><p>在每轮的残差计算中，GBDT利用损失函数的负梯度作为残差的近似。（GBDT的损失函数是平方损失函数）<br>常用的回归树的损失函数有平方损失函数、绝对损失函数、Huber损失函数和分位数损失函数。Huber损失函数是平方损失函数和绝对损失函数的结合，在误差较小时表现为平方损失，在误差较大时表现为绝对损失。分位数损失函数在处理正负样本不均衡时非常有用,二者的作用是的减少异常值对损失函数的影响。<br>常用的分类树的损失函数有指数损失函数、对数损失函数和Hinge损失函数。</p>
+<h2 id="1-3-正则化"><a href="#1-3-正则化" class="headerlink" title="1.3 正则化"></a>1.3 正则化</h2><p>GBDT的正则化手段有：</p>
+<ul>
+<li>调整步长</li>
+<li>子采样</li>
+<li>CART决策树剪枝</li>
+<li>Early Stopping</li>
+</ul>
+<h1 id="2-scikit-learn中的GBDT"><a href="#2-scikit-learn中的GBDT" class="headerlink" title="2. scikit-learn中的GBDT"></a>2. scikit-learn中的GBDT</h1><h2 id="2-1-参数"><a href="#2-1-参数" class="headerlink" title="2.1 参数"></a>2.1 参数</h2><p>boosting参数：</p>
+<ul>
+<li>n_estimators：弱学习器的数量</li>
+<li>learning_rate：步长</li>
+<li>loss：损失函数</li>
+<li>init：初始化弱学习器</li>
+<li>subsample：子采样</li>
+<li>alpha：Huber损失函数中的参数(quantile)</li>
+</ul>
+<p>决策树参数：</p>
+<ul>
+<li>max_depth：最大深度,默认值为3</li>
+<li>min_samples_split：最小分割样本数,少于这个数目，则不分割</li>
+<li>min_samples_leaf：最小叶子节点样本数,少于这个数目，则会剪枝</li>
+<li>max_features：最大特征数,默认值为None，表示使用所有特征，另外比如max_features&#x3D;sqrt，则表示随机选择sqrt(n_features)个特征</li>
+<li>max_leaf_nodes：最大叶子节点数,默认值为None，表示不限制叶子节点数</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2024/12/20/GBDT/" data-id="cm50gbj650001fwptht3uae8a" data-title="GBDT" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A8%A1%E5%9E%8B/" rel="tag">模型</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A3%8E%E6%8E%A7/" rel="tag">风控</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-xgboost复习" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/20/xgboost%E5%A4%8D%E4%B9%A0/" class="article-date">
+  <time class="dt-published" datetime="2024-12-20T03:14:44.000Z" itemprop="datePublished">2024-12-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/20/xgboost%E5%A4%8D%E4%B9%A0/">xgboost复习</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2024/12/20/xgboost%E5%A4%8D%E4%B9%A0/" data-id="cm50gbj690004fwptgmh72osr" data-title="xgboost复习" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A8%A1%E5%9E%8B/" rel="tag">模型</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A3%8E%E6%8E%A7/" rel="tag">风控</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Python/python-basics" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/19/Python/python-basics/" class="article-date">
+  <time class="dt-published" datetime="2024-12-19T09:44:21.000Z" itemprop="datePublished">2024-12-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>►<a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/19/Python/python-basics/">Python基础知识总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="1-Python-拷贝"><a href="#1-Python-拷贝" class="headerlink" title="1. Python 拷贝"></a>1. Python 拷贝</h2><p>在python中，使用已知变量对新变量赋值有三种方式：</p>
+<ol>
+<li>直接赋值：即新变量与已知变量指向同一个内存地址</li>
+<li>浅拷贝</li>
+<li>深拷贝</li>
+</ol>
+<p>对于深拷贝和浅拷贝，需要区分已知变量是可变对象还是不可变对象。<br>对于不可变对象，深拷贝和浅拷贝没有区别，都是直接赋值，即新变量与已知变量指向同一个内存地址。<br>对于可变对象，深拷贝和浅拷贝有区别。<br>浅拷贝会创建一个新的对象，但是新对象中的元素仍然指向与已知对象相同的内存地址。<br>深拷贝会创建一个新的对象，并且新对象中的元素也会创建新的内存地址。</p>
+<p>笔者理解：<br>从内存角度理解，直接赋值、浅拷贝到深拷贝的过程是把已知变量copy并创造新变量的程度区别。<br>直接赋值不进行拷贝，浅拷贝只copy外层，而指向的内层的内存地址没有改变，深拷贝则是同时创造了新的外层和内层的copy（考虑对象可变性）。</p>
+<h2 id="2-Python对象"><a href="#2-Python对象" class="headerlink" title="2. Python对象"></a>2. Python对象</h2><p>常用对象：元组字典列表集合<br>他们的异同点有：</p>
+<ol>
+<li>元组是不可变对象，字典、列表、集合是可变对象</li>
+<li>字典、列表、集合是可迭代对象，元组是序列对象</li>
+<li>字典、列表、集合是容器对象，元组是扁平对象</li>
+</ol>
+<h2 id="3-迭代器"><a href="#3-迭代器" class="headerlink" title="3. 迭代器"></a>3. 迭代器</h2><p>迭代器是实现了<code>__iter__</code>和<code>__next__</code>方法的对象。<br>列表、字典、集合、元组、字符串都是可迭代对象，但是它们不是迭代器。<br>可迭代对象的特点是实现了<code>__iter__</code>方法，这个方法返回一个迭代器，迭代器可以按照一定顺序生成下一个元素。<br>Python内置的<code>iter()</code>函数可以接受一个可迭代对象，并返回一个迭代器。迭代器使用<code>next()</code>函数来获取下一个元素，当迭代器没有元素时，会抛出<code>StopIteration</code>异常。Python中的for循环就是通过迭代器来实现的。</p>
+<h2 id="4-生成器"><a href="#4-生成器" class="headerlink" title="4. 生成器"></a>4. 生成器</h2><p>生成器是一种特殊的迭代器，在迭代的过程中动态的生成值。<br>生成器使用<code>yield</code>关键字来定义，当生成器的代码执行到<code>yield</code>时，会返回一个值，并且保存当前的执行状态，下次调用<code>next()</code>函数时，会从上次保存的执行状态继续执行。<br>因此生成器最大的特点在于节省内存，因此生成器适合用于需要大量数据处理的场景。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2024/12/19/Python/python-basics/" data-id="cm50gok4t0001rcptajtl7j64" data-title="Python基础知识总结" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" rel="tag">编程基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-算法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/12/14/%E7%AE%97%E6%B3%95/" class="article-date">
@@ -101,6 +595,50 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algo%EF%BC%9B%E7%AE%97%E6%B3%95/" rel="tag">algo；算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-algorithm/algorithm-notes" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/14/algorithm/algorithm-notes/" class="article-date">
+  <time class="dt-published" datetime="2024-12-14T03:57:43.000Z" itemprop="datePublished">2024-12-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>►<a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/14/algorithm/algorithm-notes/">算法学习笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2024/12/14/algorithm/algorithm-notes/" data-id="cm50gok4y0004rcptd1j9dguz" data-title="算法学习笔记" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
 
     </footer>
   </div>
@@ -155,270 +693,12 @@
 
 
   
-    <article id="post-Deploy" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/09/Deploy/" class="article-date">
-  <time class="dt-published" datetime="2024-12-09T14:01:32.000Z" itemprop="datePublished">2024-12-09</time>
-</a>
+
+
+  <nav id="page-nav">
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/09/Deploy/">Deploy</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>记录一下部署个站的过程</p>
-<h2 id="1-环境新增"><a href="#1-环境新增" class="headerlink" title="1. 环境新增"></a>1. 环境新增</h2><p>在云服务器上新建一个部署用户，并赋予sudo权限</p>
-<h3 id="创建名为-‘XXX’-的新用户（你可以换成其他名字）"><a href="#创建名为-‘XXX’-的新用户（你可以换成其他名字）" class="headerlink" title="创建名为 ‘XXX’ 的新用户（你可以换成其他名字）"></a>创建名为 ‘XXX’ 的新用户（你可以换成其他名字）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> useradd -m -s /bin/bash XXX</span><br></pre></td></tr></table></figure>
-
-<h3 id="设置用户密码"><a href="#设置用户密码" class="headerlink" title="设置用户密码"></a>设置用户密码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> passwd XXX</span><br></pre></td></tr></table></figure>
-
-<h3 id="将用户添加到-sudo-组（如果需要-sudo-权限的话）"><a href="#将用户添加到-sudo-组（如果需要-sudo-权限的话）" class="headerlink" title="将用户添加到 sudo 组（如果需要 sudo 权限的话）"></a>将用户添加到 sudo 组（如果需要 sudo 权限的话）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> usermod -aG <span class="built_in">sudo</span> XXX</span><br></pre></td></tr></table></figure>
-
-<h3 id="切换到-XXX-用户"><a href="#切换到-XXX-用户" class="headerlink" title="切换到 XXX 用户"></a>切换到 XXX 用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su - XXX</span><br></pre></td></tr></table></figure>
-
-<h3 id="验证当前用户"><a href="#验证当前用户" class="headerlink" title="验证当前用户"></a>验证当前用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">whoami</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2-安装nginx"><a href="#2-安装nginx" class="headerlink" title="2. 安装nginx"></a>2. 安装nginx</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install nginx</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-上传工程文件"><a href="#3-上传工程文件" class="headerlink" title="3. 上传工程文件"></a>3. 上传工程文件</h2><p>需要给用户XXX赋予权限操作文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">chown</span> -R XXX:XXX /var/www/html</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> -R 755 /var/www/html</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-配置nginx"><a href="#4-配置nginx" class="headerlink" title="4. 配置nginx"></a>4. 配置nginx</h2><p>开放80和443端口，并允许nginx通过防火墙</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow 80/tcp</span><br><span class="line"><span class="built_in">sudo</span> ufw allow 443/tcp</span><br><span class="line"><span class="built_in">sudo</span> ufw allow <span class="string">&#x27;Nginx Full&#x27;</span></span><br></pre></td></tr></table></figure>
-<p>重启nginx</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nginx -t</span><br><span class="line"><span class="built_in">sudo</span> systemctl restart nginx</span><br></pre></td></tr></table></figure>
-
-<h2 id="5-测试访问"><a href="#5-测试访问" class="headerlink" title="5. 测试访问"></a>5. 测试访问</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost</span><br></pre></td></tr></table></figure>
-
-<h2 id="6-其他配置"><a href="#6-其他配置" class="headerlink" title="6. 其他配置"></a>6. 其他配置</h2><p>主要在域名服务商或DNS提供商处配置域名解析，将域名指向云服务器的公网IP地址。<br>注意云服务器需要开放80和443端口，允许通过80和443端口访问。</p>
-<h2 id="7-配置SSL证书"><a href="#7-配置SSL证书" class="headerlink" title="7. 配置SSL证书"></a>7. 配置SSL证书</h2><p>免费的ssl证书可以通过acme.sh获取，并自动更新</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 acme.sh</span></span><br><span class="line">curl https://get.acme.sh | sh -s email=你的邮箱@example.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载环境变量</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 申请证书</span></span><br><span class="line">acme.sh --issue -d mydomain.com -d www.mydomain.com --webroot /home/wwwroot/mydomain.com/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装证书</span></span><br><span class="line">acme.sh --installcert -d mydomain.com -d www.mydomain.com --key-file /etc/nginx/ssl/mydomain.key --fullchain-file /etc/nginx/ssl/mydomain.cer --reloadcmd <span class="string">&quot;systemctl restart nginx&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#nginx配置</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name mydomain.com www.mydomain.com;</span><br><span class="line">    <span class="built_in">return</span> 301 https://$host<span class="variable">$request_uri</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#测试并重启nginx</span></span><br><span class="line"><span class="built_in">sudo</span> nginx -t</span><br><span class="line"><span class="built_in">sudo</span> systemctl restart nginx</span><br><span class="line"></span><br><span class="line"><span class="comment">#安全组开放443端口</span></span><br><span class="line"><span class="comment">#done</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="To-Do"><a href="#To-Do" class="headerlink" title="To Do"></a>To Do</h1><ul>
-<li>配置反向代理</li>
-<li>配置缓存</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://yxbzz666.github.io/2024/12/09/Deploy/" data-id="cm4hu89oh0000xgpt7v01dhrs" data-title="Deploy" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Personal-Website/" rel="tag">Personal Website</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Thoughts-about-pooling-system-on-Retail-exposures" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/11/26/Thoughts-about-pooling-system-on-Retail-exposures/" class="article-date">
-  <time class="dt-published" datetime="2024-11-26T08:11:19.000Z" itemprop="datePublished">2024-11-26</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Risk-Management/">Risk Management</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/11/26/Thoughts-about-pooling-system-on-Retail-exposures/">Risk Management</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>最近再做信用风险压力测试方面的工作，记录一下这段时间的思考。</p>
-<h2 id="1-信用风险压力测试"><a href="#1-信用风险压力测试" class="headerlink" title="1. 信用风险压力测试"></a>1. 信用风险压力测试</h2><h3 id="1-1-信用风险压力测试的定义"><a href="#1-1-信用风险压力测试的定义" class="headerlink" title="1.1 信用风险压力测试的定义"></a>1.1 信用风险压力测试的定义</h3><p>信用风险压力测试是指在一定的假设情景下，通过压力测试情景的构建，分析在极端情景下信用风险的变化情况，并评估这些变化对信用风险的影响。</p>
-<p>根据新巴塞尔协议，信用风险压力测试还包括了市场风险压力测试，即在极端情景下，市场风险的变化情况，并评估这些变化对市场风险的影响。<br>所以我们的压力测试输入指标涵盖了信用风险和市场风险两部分内容。</p>
-<h3 id="1-2-信用风险压力测试的输入指标"><a href="#1-2-信用风险压力测试的输入指标" class="headerlink" title="1.2 信用风险压力测试的输入指标"></a>1.2 信用风险压力测试的输入指标</h3><p>信用风险压力测试的输入指标主要包括：</p>
-<ul>
-<li>违约概率（PD）</li>
-<li>违约损失率（LGD）</li>
-<li>违约风险暴露（EAD）</li>
-<li>违约风险敞口（Exposure at Default, EAD）</li>
-</ul>
-<p>市场风险压力测试的输入指标主要包括：</p>
-<ul>
-<li>市场风险因子（如利率、汇率、股票价格等）</li>
-<li>市场风险因子之间的相关性</li>
-<li>市场风险因子在极端情景下的变化情况</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://yxbzz666.github.io/2024/11/26/Thoughts-about-pooling-system-on-Retail-exposures/" data-id="cm3yacjk50000hwpth21a5gck" data-title="Risk Management" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Risk-Management/" rel="tag">Risk Management</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-GitHub-Pages搭建" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/11/24/GitHub-Pages%E6%90%AD%E5%BB%BA/" class="article-date">
-  <time class="dt-published" datetime="2024-11-24T03:53:56.000Z" itemprop="datePublished">2024-11-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/11/24/GitHub-Pages%E6%90%AD%E5%BB%BA/">GitHub Pages搭建</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>尝试记录一下遇到的问题和奇奇怪怪的情况<br>（比如前两次部署完全不更新的情况）</p>
-<p>##环境准备<br>搭建应用的技术栈：<br>Git<br>Node.js</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://yxbzz666.github.io/2024/11/24/GitHub-Pages%E6%90%AD%E5%BB%BA/" data-id="cm3va904x0001ncpt586ja02r" data-title="GitHub Pages搭建" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Hello-World-0" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/11/24/Hello-World-0/" class="article-date">
-  <time class="dt-published" datetime="2024-11-24T01:54:40.923Z" itemprop="datePublished">2024-11-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/11/24/Hello-World-0/">Hello World Hexo</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>This is my first blog in Github Pages, here I would like to record my generate and deploy process for future use.<br>Please note, this is just a basic novel about how to generate a personal blog and deploy it using Github io, hope you like it.</p>
-<p>Thank you Hexo!</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://yxbzz666.github.io/2024/11/24/Hello-World-0/" data-id="cm3va904s0000ncptcxxq226r" data-title="Hello World Hexo" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/11/24/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2024-11-24T00:57:00.647Z" itemprop="datePublished">2024-11-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/11/24/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://yxbzz666.github.io/2024/11/24/hello-world/" data-id="cm3va904z0002ncpt23v2ffkt" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
 
 </section>
         
@@ -428,7 +708,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Risk-Management/">Risk Management</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/">网站部署</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Risk-Management/">Risk Management</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Risk-Management/Research/">Research</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/">Python</a></li></ul></li></ul>
     </div>
   </div>
 
@@ -438,7 +718,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Personal-Website/" rel="tag">Personal Website</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Risk-Management/" rel="tag">Risk Management</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo%EF%BC%9B%E7%AE%97%E6%B3%95/" rel="tag">algo；算法</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Banking/" rel="tag">Banking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lambda/" rel="tag">Lambda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Personal-Website/" rel="tag">Personal Website</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Risk-Management/" rel="tag">Risk Management</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo%EF%BC%9B%E7%AE%97%E6%B3%95/" rel="tag">algo；算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pandas/" rel="tag">pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/" rel="tag">服务器配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AA%E5%88%86%E7%B1%BB/" rel="tag">未分类</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9E%8B/" rel="tag">模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" rel="tag">编程基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/" rel="tag">装饰器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9B%E9%98%B6%E6%95%99%E7%A8%8B/" rel="tag">进阶教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%97%AD%E5%8C%85/" rel="tag">闭包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A3%8E%E6%8E%A7/" rel="tag">风控</a></li></ul>
     </div>
   </div>
 
@@ -448,7 +728,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Personal-Website/" style="font-size: 10px;">Personal Website</a> <a href="/tags/Risk-Management/" style="font-size: 10px;">Risk Management</a> <a href="/tags/algo%EF%BC%9B%E7%AE%97%E6%B3%95/" style="font-size: 10px;">algo；算法</a>
+      <a href="/tags/Banking/" style="font-size: 10px;">Banking</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Lambda/" style="font-size: 10px;">Lambda</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Personal-Website/" style="font-size: 10px;">Personal Website</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/Risk-Management/" style="font-size: 13.33px;">Risk Management</a> <a href="/tags/algo%EF%BC%9B%E7%AE%97%E6%B3%95/" style="font-size: 10px;">algo；算法</a> <a href="/tags/pandas/" style="font-size: 10px;">pandas</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.33px;">数据结构</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">服务器配置</a> <a href="/tags/%E6%9C%AA%E5%88%86%E7%B1%BB/" style="font-size: 10px;">未分类</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 13.33px;">机器学习</a> <a href="/tags/%E6%A8%A1%E5%9E%8B/" style="font-size: 13.33px;">模型</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">编程基础</a> <a href="/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/" style="font-size: 10px;">装饰器</a> <a href="/tags/%E8%BF%9B%E9%98%B6%E6%95%99%E7%A8%8B/" style="font-size: 16.67px;">进阶教程</a> <a href="/tags/%E9%97%AD%E5%8C%85/" style="font-size: 10px;">闭包</a> <a href="/tags/%E9%A3%8E%E6%8E%A7/" style="font-size: 13.33px;">风控</a>
     </div>
   </div>
 
@@ -457,7 +737,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li></ul>
     </div>
   </div>
 
@@ -470,23 +750,23 @@
       <ul>
         
           <li>
-            <a href="/2024/12/14/%E7%AE%97%E6%B3%95/">算法</a>
+            <a href="/2025/01/01/pandas-misc/">pandas_misc</a>
           </li>
         
           <li>
-            <a href="/2024/12/10/Git-%E8%AE%B0%E5%BD%95/">Git 记录</a>
+            <a href="/2024/12/25/Python/memory-manage-gabbage-collect/">Python内存管理与垃圾回收</a>
           </li>
         
           <li>
-            <a href="/2024/12/09/Deploy/">Deploy</a>
+            <a href="/2024/12/23/Python/python-pandas/">python-pandas</a>
           </li>
         
           <li>
-            <a href="/2024/11/26/Thoughts-about-pooling-system-on-Retail-exposures/">Risk Management</a>
+            <a href="/2024/12/23/Python/python-closure/">Python闭包</a>
           </li>
         
           <li>
-            <a href="/2024/11/24/GitHub-Pages%E6%90%AD%E5%BB%BA/">GitHub Pages搭建</a>
+            <a href="/2024/12/20/GBDT/">GBDT</a>
           </li>
         
       </ul>
@@ -502,7 +782,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2024 Xinbo<br>
+      &copy; 2025 Xinbo<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Xinbo&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Xinbo&#39;s Blog">
+<meta property="og:url" content="https://yxbzz666.github.io/page/2/index.html">
+<meta property="og:site_name" content="Xinbo&#39;s Blog">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="Xinbo">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Xinbo's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Xinbo&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://yxbzz666.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-devops/personal-site-deployment" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/09/devops/personal-site-deployment/" class="article-date">
+  <time class="dt-published" datetime="2024-12-09T14:01:32.000Z" itemprop="datePublished">2024-12-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>►<a class="article-category-link" href="/categories/DevOps/%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/">网站部署</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/09/devops/personal-site-deployment/">个人网站部署指南</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>记录一下部署个站的过程</p>
+<h2 id="1-环境新增"><a href="#1-环境新增" class="headerlink" title="1. 环境新增"></a>1. 环境新增</h2><p>在云服务器上新建一个部署用户，并赋予sudo权限</p>
+<h3 id="创建名为-‘XXX’-的新用户（你可以换成其他名字）"><a href="#创建名为-‘XXX’-的新用户（你可以换成其他名字）" class="headerlink" title="创建名为 ‘XXX’ 的新用户（你可以换成其他名字）"></a>创建名为 ‘XXX’ 的新用户（你可以换成其他名字）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> useradd -m -s /bin/bash XXX</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置用户密码"><a href="#设置用户密码" class="headerlink" title="设置用户密码"></a>设置用户密码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> passwd XXX</span><br></pre></td></tr></table></figure>
+
+<h3 id="将用户添加到-sudo-组（如果需要-sudo-权限的话）"><a href="#将用户添加到-sudo-组（如果需要-sudo-权限的话）" class="headerlink" title="将用户添加到 sudo 组（如果需要 sudo 权限的话）"></a>将用户添加到 sudo 组（如果需要 sudo 权限的话）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> usermod -aG <span class="built_in">sudo</span> XXX</span><br></pre></td></tr></table></figure>
+
+<h3 id="切换到-XXX-用户"><a href="#切换到-XXX-用户" class="headerlink" title="切换到 XXX 用户"></a>切换到 XXX 用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su - XXX</span><br></pre></td></tr></table></figure>
+
+<h3 id="验证当前用户"><a href="#验证当前用户" class="headerlink" title="验证当前用户"></a>验证当前用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">whoami</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-安装nginx"><a href="#2-安装nginx" class="headerlink" title="2. 安装nginx"></a>2. 安装nginx</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install nginx</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-上传工程文件"><a href="#3-上传工程文件" class="headerlink" title="3. 上传工程文件"></a>3. 上传工程文件</h2><p>需要给用户XXX赋予权限操作文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">chown</span> -R XXX:XXX /var/www/html</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> -R 755 /var/www/html</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-配置nginx"><a href="#4-配置nginx" class="headerlink" title="4. 配置nginx"></a>4. 配置nginx</h2><p>开放80和443端口，并允许nginx通过防火墙</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow 80/tcp</span><br><span class="line"><span class="built_in">sudo</span> ufw allow 443/tcp</span><br><span class="line"><span class="built_in">sudo</span> ufw allow <span class="string">&#x27;Nginx Full&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>重启nginx</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nginx -t</span><br><span class="line"><span class="built_in">sudo</span> systemctl restart nginx</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-测试访问"><a href="#5-测试访问" class="headerlink" title="5. 测试访问"></a>5. 测试访问</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-其他配置"><a href="#6-其他配置" class="headerlink" title="6. 其他配置"></a>6. 其他配置</h2><p>主要在域名服务商或DNS提供商处配置域名解析，将域名指向云服务器的公网IP地址。<br>注意云服务器需要开放80和443端口，允许通过80和443端口访问。</p>
+<h2 id="7-配置SSL证书"><a href="#7-配置SSL证书" class="headerlink" title="7. 配置SSL证书"></a>7. 配置SSL证书</h2><p>免费的ssl证书可以通过acme.sh获取，并自动更新</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 acme.sh</span></span><br><span class="line">curl https://get.acme.sh | sh -s email=你的邮箱@example.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载环境变量</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 申请证书</span></span><br><span class="line">acme.sh --issue -d mydomain.com -d www.mydomain.com --webroot /home/wwwroot/mydomain.com/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装证书</span></span><br><span class="line">acme.sh --installcert -d mydomain.com -d www.mydomain.com --key-file /etc/nginx/ssl/mydomain.key --fullchain-file /etc/nginx/ssl/mydomain.cer --reloadcmd <span class="string">&quot;systemctl restart nginx&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#nginx配置</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name mydomain.com www.mydomain.com;</span><br><span class="line">    <span class="built_in">return</span> 301 https://$host<span class="variable">$request_uri</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#测试并重启nginx</span></span><br><span class="line"><span class="built_in">sudo</span> nginx -t</span><br><span class="line"><span class="built_in">sudo</span> systemctl restart nginx</span><br><span class="line"></span><br><span class="line"><span class="comment">#安全组开放443端口</span></span><br><span class="line"><span class="comment">#done</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="To-Do"><a href="#To-Do" class="headerlink" title="To Do"></a>To Do</h1><ul>
+<li>配置反向代理</li>
+<li>配置缓存</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2024/12/09/devops/personal-site-deployment/" data-id="cm50gok500006rcpt3zfu14gx" data-title="个人网站部署指南" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Personal-Website/" rel="tag">Personal Website</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/" rel="tag">服务器配置</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Thoughts-about-pooling-system-on-Retail-exposures" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/11/26/Thoughts-about-pooling-system-on-Retail-exposures/" class="article-date">
+  <time class="dt-published" datetime="2024-11-26T08:11:19.000Z" itemprop="datePublished">2024-11-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Risk-Management/">Risk Management</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/11/26/Thoughts-about-pooling-system-on-Retail-exposures/">Risk Management</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>最近再做信用风险压力测试方面的工作，记录一下这段时间的思考。</p>
+<h2 id="1-信用风险压力测试"><a href="#1-信用风险压力测试" class="headerlink" title="1. 信用风险压力测试"></a>1. 信用风险压力测试</h2><h3 id="1-1-信用风险压力测试的定义"><a href="#1-1-信用风险压力测试的定义" class="headerlink" title="1.1 信用风险压力测试的定义"></a>1.1 信用风险压力测试的定义</h3><p>信用风险压力测试是指在一定的假设情景下，通过压力测试情景的构建，分析在极端情景下信用风险的变化情况，并评估这些变化对信用风险的影响。</p>
+<p>根据新巴塞尔协议，信用风险压力测试还包括了市场风险压力测试，即在极端情景下，市场风险的变化情况，并评估这些变化对市场风险的影响。<br>所以我们的压力测试输入指标涵盖了信用风险和市场风险两部分内容。</p>
+<h3 id="1-2-信用风险压力测试的输入指标"><a href="#1-2-信用风险压力测试的输入指标" class="headerlink" title="1.2 信用风险压力测试的输入指标"></a>1.2 信用风险压力测试的输入指标</h3><p>信用风险压力测试的输入指标主要包括：</p>
+<ul>
+<li>违约概率（PD）</li>
+<li>违约损失率（LGD）</li>
+<li>违约风险暴露（EAD）</li>
+<li>违约风险敞口（Exposure at Default, EAD）</li>
+</ul>
+<p>市场风险压力测试的输入指标主要包括：</p>
+<ul>
+<li>市场风险因子（如利率、汇率、股票价格等）</li>
+<li>市场风险因子之间的相关性</li>
+<li>市场风险因子在极端情景下的变化情况</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2024/11/26/Thoughts-about-pooling-system-on-Retail-exposures/" data-id="cm3yacjk50000hwpth21a5gck" data-title="Risk Management" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Risk-Management/" rel="tag">Risk Management</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-risk-management/retail-pooling-system" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/11/26/risk-management/retail-pooling-system/" class="article-date">
+  <time class="dt-published" datetime="2024-11-25T16:00:00.000Z" itemprop="datePublished">2024-11-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Risk-Management/">Risk Management</a>►<a class="article-category-link" href="/categories/Risk-Management/Research/">Research</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/11/26/risk-management/retail-pooling-system/">Thoughts about pooling system on Retail exposures</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2024/11/26/risk-management/retail-pooling-system/" data-id="cm50gok53000ercpt91n2cqbj" data-title="Thoughts about pooling system on Retail exposures" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Banking/" rel="tag">Banking</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Risk-Management/" rel="tag">Risk Management</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-GitHub-Pages搭建" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/11/24/GitHub-Pages%E6%90%AD%E5%BB%BA/" class="article-date">
+  <time class="dt-published" datetime="2024-11-24T03:53:56.000Z" itemprop="datePublished">2024-11-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/11/24/GitHub-Pages%E6%90%AD%E5%BB%BA/">GitHub Pages搭建</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>尝试记录一下遇到的问题和奇奇怪怪的情况<br>（比如前两次部署完全不更新的情况）</p>
+<p>##环境准备<br>搭建应用的技术栈：<br>Git<br>Node.js</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2024/11/24/GitHub-Pages%E6%90%AD%E5%BB%BA/" data-id="cm3va904x0001ncpt586ja02r" data-title="GitHub Pages搭建" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Hello-World-0" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/11/24/Hello-World-0/" class="article-date">
+  <time class="dt-published" datetime="2024-11-24T01:54:40.923Z" itemprop="datePublished">2024-11-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/11/24/Hello-World-0/">Hello World Hexo</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>This is my first blog in Github Pages, here I would like to record my generate and deploy process for future use.<br>Please note, this is just a basic novel about how to generate a personal blog and deploy it using Github io, hope you like it.</p>
+<p>Thank you Hexo!</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2024/11/24/Hello-World-0/" data-id="cm3va904s0000ncptcxxq226r" data-title="Hello World Hexo" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/11/24/hello-world/" class="article-date">
+  <time class="dt-published" datetime="2024-11-24T00:57:00.647Z" itemprop="datePublished">2024-11-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/11/24/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2024/11/24/hello-world/" data-id="cm3va904z0002ncpt23v2ffkt" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Python/python-tuple" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/21/Python/python-tuple/" class="article-date">
+  <time class="dt-published" datetime="2024-03-20T16:00:00.000Z" itemprop="datePublished">2024-03-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>►<a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/03/21/Python/python-tuple/">深入理解Python元组</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="元组基础"><a href="#元组基础" class="headerlink" title="元组基础"></a>元组基础</h2><p>元组(Tuple)是Python中的一种不可变序列类型。它的特点是一旦创建就不能修改，这使得元组成为存储固定数据的理想选择。</p>
+<h3 id="创建元组"><a href="#创建元组" class="headerlink" title="创建元组"></a>创建元组</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建空元组</span></span><br><span class="line">empty_tuple = ()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建包含元素的元组</span></span><br><span class="line">numbers = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">mixed = (<span class="number">1</span>, <span class="string">&quot;hello&quot;</span>, <span class="number">3.14</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 单元素元组要加逗号</span></span><br><span class="line">single = (<span class="number">1</span>,)  <span class="comment"># 正确</span></span><br><span class="line">not_tuple = (<span class="number">1</span>)  <span class="comment"># 这是整数，不是元组</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="元组的特性"><a href="#元组的特性" class="headerlink" title="元组的特性"></a>元组的特性</h2><h3 id="1-不可变性"><a href="#1-不可变性" class="headerlink" title="1. 不可变性"></a>1. 不可变性</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">coordinates = (<span class="number">10</span>, <span class="number">20</span>)</span><br><span class="line"><span class="comment"># coordinates[0] = 30  # 这会引发TypeError</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-访问元素"><a href="#2-访问元素" class="headerlink" title="2. 访问元素"></a>2. 访问元素</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 索引访问</span></span><br><span class="line">point = (<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">x = point[<span class="number">0</span>]  <span class="comment"># 3</span></span><br><span class="line">y = point[<span class="number">1</span>]  <span class="comment"># 4</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 切片</span></span><br><span class="line"><span class="comment"># 可以使用切片操作符 : 来访问元组中的一部分元素。切片操作符 start:stop 会返回从索引 start 到 stop-1 的元素。切片操作符 start:stop:step 可以指定步长 step。</span></span><br><span class="line">numbers = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line">subset = numbers[<span class="number">1</span>:<span class="number">4</span>]  <span class="comment"># (2, 3, 4)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-元组解包"><a href="#3-元组解包" class="headerlink" title="3. 元组解包"></a>3. 元组解包</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基本解包</span></span><br><span class="line">x, y = (<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用*运算符解包</span></span><br><span class="line">first, *rest = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="comment"># first = 1, rest = [2, 3, 4]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-元组的方法"><a href="#4-元组的方法" class="headerlink" title="4. 元组的方法"></a>4. 元组的方法</h3><p>count()：返回指定元素在元组中出现的次数。<br>index()：返回指定元素在元组中首次出现的索引。</p>
+<h2 id="元组的优势"><a href="#元组的优势" class="headerlink" title="元组的优势"></a>元组的优势</h2><ol>
+<li><strong>性能优化</strong>：元组比列表占用更少的内存,Cpython实现时元组比列表少一个alloc</li>
+<li><strong>数据安全</strong>：不可变性保证数据不被意外修改</li>
+<li><strong>可作为字典键</strong>：由于不可变性，元组可以作为字典的键</li>
+</ol>
+<h2 id="实际应用场景"><a href="#实际应用场景" class="headerlink" title="实际应用场景"></a>实际应用场景</h2><h3 id="1-返回多个值"><a href="#1-返回多个值" class="headerlink" title="1. 返回多个值"></a>1. 返回多个值</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_coordinates</span>():</span><br><span class="line">    <span class="keyword">return</span> (<span class="number">10</span>, <span class="number">20</span>)</span><br><span class="line"></span><br><span class="line">x, y = get_coordinates()</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-数据库操作"><a href="#2-数据库操作" class="headerlink" title="2. 数据库操作"></a>2. 数据库操作</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 数据库记录通常表示为元组</span></span><br><span class="line">record = (<span class="string">&#x27;张三&#x27;</span>, <span class="number">25</span>, <span class="string">&#x27;beijing@example.com&#x27;</span>)</span><br><span class="line">name, age, email = record</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-命名元组"><a href="#3-命名元组" class="headerlink" title="3. 命名元组"></a>3. 命名元组</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"></span><br><span class="line">Point = namedtuple(<span class="string">&#x27;Point&#x27;</span>, [<span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;y&#x27;</span>])</span><br><span class="line">p = Point(<span class="number">11</span>, y=<span class="number">22</span>)</span><br><span class="line"><span class="built_in">print</span>(p.x, p.y)  <span class="comment"># 11 22</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="性能考虑"><a href="#性能考虑" class="headerlink" title="性能考虑"></a>性能考虑</h2><p>元组相比列表有以下性能优势：</p>
+<ol>
+<li>创建速度更快</li>
+<li>内存占用更少</li>
+<li>迭代速度略快</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="comment"># 比较内存占用</span></span><br><span class="line">list_example = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">tuple_example = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(sys.getsizeof(list_example))   <span class="comment"># 更大</span></span><br><span class="line"><span class="built_in">print</span>(sys.getsizeof(tuple_example))  <span class="comment"># 更小</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>元组是Python中一个重要的数据结构，它的不可变性和性能优势使其在很多场景下成为理想的选择。理解并正确使用元组可以帮助我们写出更高效、更安全的代码。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2024/03/21/Python/python-tuple/" data-id="cm50gok4u0002rcpt7z6cfngu" data-title="深入理解Python元组" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Python/python-decorators" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/21/Python/python-decorators/" class="article-date">
+  <time class="dt-published" datetime="2024-03-20T16:00:00.000Z" itemprop="datePublished">2024-03-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>►<a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/03/21/Python/python-decorators/">Python装饰器详解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Python装饰器是Python中的一种高级功能，它允许你在不修改函数定义的情况下，向函数添加额外的功能，通常用于重复性的功能。<br>装饰器本质上是一个函数，它接受一个函数作为参数，并返回一个新的函数。<br>装饰器通常用于日志记录、权限检查、性能监控等场景。</p>
+<p>代码示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">my_decorator</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Something is happening before the function is called.&quot;</span>)</span><br><span class="line">        func()    <span class="comment"># 调用被装饰的函数,等于执行foo()</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Something is happening after the function is called.&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">foo</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;foo is called&quot;</span>)</span><br><span class="line"></span><br><span class="line">foo = my_decorator(foo)  <span class="comment"># 装饰器函数返回一个新函数wrapper，相当于foo = wrapper</span></span><br><span class="line">foo()     <span class="comment"># 调用foo，相当于调用wrapper()</span></span><br></pre></td></tr></table></figure>
+
+<p>使用装饰器的好处在于，可以在不修改函数定义的情况下，向函数添加额外的功能，并且保证函数原有的功能和调用方式不变。<br>面向切面编程（AOP），在函数执行前后添加额外的功能。</p>
+<p>语法糖：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">my_decorator</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Something is happening before the function is called.&quot;</span>)</span><br><span class="line">        func()    <span class="comment"># 调用被装饰的函数,等于执行foo()</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Something is happening after the function is called.&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@my_decorator   </span><span class="comment"># 语法糖，相当于foo = my_decorator(foo)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">foo</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;foo is called&quot;</span>)</span><br><span class="line"></span><br><span class="line">foo()     <span class="comment"># 调用foo，相当于调用wrapper()</span></span><br></pre></td></tr></table></figure>
+
+<p>业务逻辑函数可以带参数：<br>当业务逻辑函数不明确有几个参数时，装饰器可以使用<code>*args</code>和<code>**kwargs</code>来接收参数。<br>其中<code>*args</code>是接收位置参数，是一个元组，<code>**kwargs</code>是接收关键字参数，是一个字典。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">my_decorator</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Something is happening before the function is called.&quot;</span>)</span><br><span class="line">        func(*args, **kwargs)    <span class="comment"># 调用被装饰的函数,等于执行foo()</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Something is happening after the function is called.&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@my_decorator</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">foo</span>(<span class="params">x, y = <span class="literal">None</span></span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;foo is called with <span class="subst">&#123;x&#125;</span> and <span class="subst">&#123;y&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">foo(<span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>装饰器本身也可以带参数，用于执行不同等级的装饰器。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">my_decorator</span>(<span class="params">level</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">func</span>):</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">inner_wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">            <span class="keyword">if</span> level == <span class="string">&quot;high&quot;</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;high level&quot;</span>)</span><br><span class="line">            <span class="keyword">elif</span> level == <span class="string">&quot;low&quot;</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;low level&quot;</span>)</span><br><span class="line">            func(*args, **kwargs)</span><br><span class="line">        <span class="keyword">return</span> inner_wrapper</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@my_decorator(<span class="params">level=<span class="string">&quot;high&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">foo</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;foo is called&quot;</span>)</span><br><span class="line"></span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
+
+<p>类装饰器：<br>类装饰器主要靠<code>__call__</code>方法，在调用类时，会自动调用<code>__call__</code>方法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyDecorator</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, func</span>):</span><br><span class="line">        <span class="variable language_">self</span>.func = func</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self, *args, **kwargs</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Something is happening before the function is called.&quot;</span>)</span><br><span class="line">        <span class="variable language_">self</span>.func(*args, **kwargs)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Something is happening after the function is called.&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@MyDecorator</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">foo</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;foo is called&quot;</span>)</span><br><span class="line"></span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
+
+<p>高级用法，上面都是装饰器的基本情况，但是在以上的例子中，原函数的元数据（如<code>__name__</code>、<code>__doc__</code>等）会被装饰器函数覆盖。<br>这时我们可以使用<code>functools.wraps</code>来保留原函数的元数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">my_decorator</span>(<span class="params">func</span>):</span><br><span class="line"><span class="meta">    @functools.wraps(<span class="params">func</span>)</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="built_in">print</span>(func.__name__)</span><br><span class="line">        func(*args, **kwargs)</span><br><span class="line">        <span class="built_in">print</span>(func.__doc__)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@my_decorator</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">foo</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;foo is called&quot;</span>)</span><br><span class="line"></span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
+
+<p>装饰器顺序：<br>多个装饰器时，装饰器的执行顺序是从内到外，从下到上。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">decorator1</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;decorator1 is called&quot;</span>)</span><br><span class="line">        func(*args, **kwargs)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">decorator2</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;decorator2 is called&quot;</span>)</span><br><span class="line">        func(*args, **kwargs)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@decorator1</span></span><br><span class="line"><span class="meta">@decorator2</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">foo</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;foo is called&quot;</span>)</span><br><span class="line"></span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
+<p>上面的代码等效于：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foo = decorator1(decorator2(foo))</span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2024/03/21/Python/python-decorators/" data-id="cm50w48750005x4pt046v86j6" data-title="Python装饰器详解" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/" rel="tag">装饰器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%9B%E9%98%B6%E6%95%99%E7%A8%8B/" rel="tag">进阶教程</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Python/python-lambda-closure" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/21/Python/python-lambda-closure/" class="article-date">
+  <time class="dt-published" datetime="2024-03-20T16:00:00.000Z" itemprop="datePublished">2024-03-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>►<a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/03/21/Python/python-lambda-closure/">Python Lambda与变量继承</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="Lambda与变量继承"><a href="#Lambda与变量继承" class="headerlink" title="Lambda与变量继承"></a>Lambda与变量继承</h2><p>Lambda函数在Python中是一种特殊的匿名函数，它的变量继承行为需要特别注意。本文将详细探讨lambda函数中的变量作用域和闭包特性。</p>
+<h3 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1. 基本概念"></a>1. 基本概念</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># lambda函数的基本语法</span></span><br><span class="line"><span class="keyword">lambda</span> arguments: expression</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-变量继承行为"><a href="#2-变量继承行为" class="headerlink" title="2. 变量继承行为"></a>2. 变量继承行为</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例1：正常的变量继承</span></span><br><span class="line">x = <span class="number">10</span></span><br><span class="line">f = <span class="keyword">lambda</span>: x</span><br><span class="line"><span class="built_in">print</span>(f())  <span class="comment"># 输出: 10</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例2：循环中的变量继承陷阱</span></span><br><span class="line">funcs = [<span class="keyword">lambda</span>: i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>)]</span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> funcs:</span><br><span class="line">    <span class="built_in">print</span>(f())  <span class="comment"># 输出: 2, 2, 2 而不是期望的 0, 1, 2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-闭包与变量绑定"><a href="#3-闭包与变量绑定" class="headerlink" title="3. 闭包与变量绑定"></a>3. 闭包与变量绑定</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 解决方案1：使用默认参数</span></span><br><span class="line">funcs = [<span class="keyword">lambda</span> x=i: x <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>)]</span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> funcs:</span><br><span class="line">    <span class="built_in">print</span>(f())  <span class="comment"># 正确输出: 0, 1, 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 解决方案2：使用闭包</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_lambda</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">lambda</span>: x</span><br><span class="line"></span><br><span class="line">funcs = [create_lambda(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>)]</span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> funcs:</span><br><span class="line">    <span class="built_in">print</span>(f())  <span class="comment"># 正确输出: 0, 1, 2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-变量作用域规则"><a href="#4-变量作用域规则" class="headerlink" title="4. 变量作用域规则"></a>4. 变量作用域规则</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 局部变量与全局变量</span></span><br><span class="line">global_var = <span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">outer</span>():</span><br><span class="line">    outer_var = <span class="number">20</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># lambda可以访问外部函数的变量</span></span><br><span class="line">    f = <span class="keyword">lambda</span>: outer_var</span><br><span class="line">    <span class="keyword">return</span> f</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建闭包</span></span><br><span class="line">closure = outer()</span><br><span class="line"><span class="built_in">print</span>(closure())  <span class="comment"># 输出: 20</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-常见陷阱与解决方案"><a href="#5-常见陷阱与解决方案" class="headerlink" title="5. 常见陷阱与解决方案"></a>5. 常见陷阱与解决方案</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 陷阱1：可变对象的引用</span></span><br><span class="line"><span class="comment"># 这个问题涉及闭包的变量绑定机制:</span></span><br><span class="line"><span class="comment"># 1. lambda函数形成闭包时,会捕获外部作用域的变量引用而不是值</span></span><br><span class="line"><span class="comment"># 2. 循环变量i在循环结束后变为2</span></span><br><span class="line"><span class="comment"># 3. 所有lambda函数共享同一个i的引用</span></span><br><span class="line"><span class="comment"># 4. 当执行lambda函数时,i已经是最终值2</span></span><br><span class="line">items = []</span><br><span class="line">funcs = [<span class="keyword">lambda</span>: items.append(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>)]</span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> funcs:</span><br><span class="line">    f()</span><br><span class="line"><span class="built_in">print</span>(items)  <span class="comment"># 输出: [2, 2, 2]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 解决方案：使用不可变对象或默认参数</span></span><br><span class="line">funcs = [<span class="keyword">lambda</span> x=i: items.append(x) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>)]</span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> funcs:</span><br><span class="line">    f()</span><br><span class="line"><span class="built_in">print</span>(items)  <span class="comment"># 输出: [0, 1, 2]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-实际应用示例"><a href="#6-实际应用示例" class="headerlink" title="6. 实际应用示例"></a>6. 实际应用示例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例1：排序关键字</span></span><br><span class="line">points = [(<span class="number">1</span>, <span class="number">2</span>), (<span class="number">3</span>, <span class="number">1</span>), (<span class="number">0</span>, <span class="number">4</span>)]</span><br><span class="line">sorted_points = <span class="built_in">sorted</span>(points, key=<span class="keyword">lambda</span> p: p[<span class="number">1</span>])  <span class="comment"># 按y坐标排序</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例2：函数工厂</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">multiplier</span>(<span class="params">n</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">lambda</span> x: x * n</span><br><span class="line"></span><br><span class="line">double = multiplier(<span class="number">2</span>)</span><br><span class="line">triple = multiplier(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(double(<span class="number">5</span>))  <span class="comment"># 输出: 10</span></span><br><span class="line"><span class="built_in">print</span>(triple(<span class="number">5</span>))  <span class="comment"># 输出: 15</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-最佳实践"><a href="#7-最佳实践" class="headerlink" title="7. 最佳实践"></a>7. 最佳实践</h3><ol>
+<li>避免在lambda中使用循环变量</li>
+<li>使用默认参数来绑定值</li>
+<li>保持lambda函数简单，复杂逻辑使用普通函数</li>
+<li>注意可变对象的引用问题</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 好的实践</span></span><br><span class="line">transform = <span class="keyword">lambda</span> x, factor=<span class="number">2</span>: x * factor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 避免的实践</span></span><br><span class="line">complex_lambda = <span class="keyword">lambda</span> x: [i * x <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>) <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">0</span>]  <span class="comment"># 太复杂</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Lambda函数的变量继承行为可能会导致一些意外的结果，特别是在循环和闭包中。理解这些行为并采用适当的解决方案对于写出可靠的Python代码至关重要。记住：</p>
+<ul>
+<li>使用默认参数来绑定值</li>
+<li>注意闭包的变量绑定时机</li>
+<li>避免在lambda中使用复杂逻辑</li>
+<li>小心处理可变对象的引用</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yxbzz666.github.io/2024/03/21/Python/python-lambda-closure/" data-id="cm5e1msn700097cptg3343ute" data-title="Python Lambda与变量继承" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lambda/" rel="tag">Lambda</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%97%AD%E5%8C%85/" rel="tag">闭包</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/">网站部署</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Risk-Management/">Risk Management</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Risk-Management/Research/">Research</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/">Python</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Banking/" rel="tag">Banking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lambda/" rel="tag">Lambda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Personal-Website/" rel="tag">Personal Website</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Risk-Management/" rel="tag">Risk Management</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo%EF%BC%9B%E7%AE%97%E6%B3%95/" rel="tag">algo；算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pandas/" rel="tag">pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/" rel="tag">服务器配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AA%E5%88%86%E7%B1%BB/" rel="tag">未分类</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9E%8B/" rel="tag">模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" rel="tag">编程基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/" rel="tag">装饰器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9B%E9%98%B6%E6%95%99%E7%A8%8B/" rel="tag">进阶教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%97%AD%E5%8C%85/" rel="tag">闭包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A3%8E%E6%8E%A7/" rel="tag">风控</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Banking/" style="font-size: 10px;">Banking</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Lambda/" style="font-size: 10px;">Lambda</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Personal-Website/" style="font-size: 10px;">Personal Website</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/Risk-Management/" style="font-size: 13.33px;">Risk Management</a> <a href="/tags/algo%EF%BC%9B%E7%AE%97%E6%B3%95/" style="font-size: 10px;">algo；算法</a> <a href="/tags/pandas/" style="font-size: 10px;">pandas</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.33px;">数据结构</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">服务器配置</a> <a href="/tags/%E6%9C%AA%E5%88%86%E7%B1%BB/" style="font-size: 10px;">未分类</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 13.33px;">机器学习</a> <a href="/tags/%E6%A8%A1%E5%9E%8B/" style="font-size: 13.33px;">模型</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">编程基础</a> <a href="/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/" style="font-size: 10px;">装饰器</a> <a href="/tags/%E8%BF%9B%E9%98%B6%E6%95%99%E7%A8%8B/" style="font-size: 16.67px;">进阶教程</a> <a href="/tags/%E9%97%AD%E5%8C%85/" style="font-size: 10px;">闭包</a> <a href="/tags/%E9%A3%8E%E6%8E%A7/" style="font-size: 13.33px;">风控</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/01/pandas-misc/">pandas_misc</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/25/Python/memory-manage-gabbage-collect/">Python内存管理与垃圾回收</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/23/Python/python-pandas/">python-pandas</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/23/Python/python-closure/">Python闭包</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/20/GBDT/">GBDT</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 Xinbo<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
